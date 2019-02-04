@@ -166,22 +166,13 @@ class Home extends Component {
                     alert={this.alert}
                 />
                 <ScrollView>
-                    {/* { bowl.map(color => (
-                        <BowlButton
-                        update={this.state.update}
-                        basket={basket}
-                        key={color}
-                        onPress={this.addToBasket}
-                        color={color}
-                        />
-                    ))} */}
-
                     {   
                         bowls.map(bowl => {
                             return(
                             <BowlButton
                                 key={bowl.name}
                                 onPress={this.addToBasket}
+                                student={student}
                                 bowl={bowl}
                             />
                             )

@@ -12,9 +12,9 @@ class BowlButton extends Component {
     }
     render(){
         const { container, image, text } = styles;
-        let { bowl, onPress } = this.props;
+        let { bowl, onPress, student } = this.props;
         let { name, price, imgURL, quantity} = bowl;
-        
+        student ? price = price * 0.75 : null;
         return (
             <TouchableOpacity onPress={() => onPress(price)}>
                 <View style={container}>
