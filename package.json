@@ -1,13 +1,19 @@
 {
+  "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "e2e": "detox test --configuration ios.sim"
   },
   "dependencies": {
+    "detox": "^10.0.5",
+    "detox-expo-helpers": "^0.6.0",
     "expo": "^32.0.0",
+    "expo-detox-hook": "^1.0.10",
+    "mocha": "^5.2.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-testfairy": "^2.16.1"
@@ -15,5 +21,13 @@
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
   },
-  "private": true
+  "detox": {
+    "configurations": {
+      "ios.sim": {
+        "binaryPath": "bin/Exponent.app",
+        "type": "ios.simulator",
+        "name": "iPhone 7"
+      }
+    }
+  }
 }
