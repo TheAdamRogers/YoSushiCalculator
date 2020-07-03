@@ -1,5 +1,10 @@
 import _ from 'lodash';
-import { ADD_TO_BASKET, REMOVE_FROM_BASKET, RESET_BASKET, REMOVE_ITEM_FROM_BASKET } from './basketTypes';
+import {
+  ADD_TO_BASKET,
+  REMOVE_FROM_BASKET,
+  REMOVE_ITEM_FROM_BASKET,
+  RESET_BASKET,
+} from './basketTypes';
 
 const INITIAL_STATE = {
   basket: [],
@@ -24,16 +29,19 @@ const purgeBasket = (basket) => {
 
 export default (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
-  console.log(state, payload);
+  //console.log(state, payload);
   switch (type) {
     case ADD_TO_BASKET:
       const basketItem = payload;
-      const initialIndex = state.basket.findIndex(x => x.name === basketItem.name);
+      const initialIndex = state.basket.findIndex((x) => x.name === basketItem.name);
 
       return {
         ...state,
         basketTotalPrice: state.basketTotalPrice + basketItem.price,
-        basket: initialIndex !== -1 ? [...updateBasketAtIndex(state.basket, initialIndex)] : [...state.basket, { ...basketItem, quantity: 1 }],
+        basket:
+          initialIndex !== -1
+            ? [...updateBasketAtIndex(state.basket, initialIndex)]
+            : [...state.basket, { ...basketItem, quantity: 1 }],
         previousItem: [...state.previousItem, basketItem],
       };
     case REMOVE_FROM_BASKET:
@@ -48,14 +56,17 @@ export default (state = INITIAL_STATE, action) => {
           }
         });
       }
-        
+
       const newBasket = purgeBasket(basket);
 
       return {
         ...state,
         basket: [...newBasket],
         previousItem: [...previousItems],
-        basketTotalPrice: previousItem !== undefined ? state.basketTotalPrice - previousItem.price : state.basketTotalPrice,
+        basketTotalPrice:
+          previousItem !== undefined
+            ? state.basketTotalPrice - previousItem.price
+            : state.basketTotalPrice,
       };
     case REMOVE_ITEM_FROM_BASKET:
       const removeItem = payload;

@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
+import { Dimensions, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 const Styles = {
   container: {
@@ -58,9 +52,9 @@ class Tabs extends Component {
       <View style={container}>
         <View style={tabsContainer}>
           {tabs.map((tab, index) => {
-            key = tab;
             return (
               <TouchableOpacity
+                key={tab}
                 onPress={() => this.selectTab(index)}
                 style={{ ...tabButton, borderBottomWidth: index === selectedTab ? 1 : 0 }}
               >
@@ -69,9 +63,7 @@ class Tabs extends Component {
             );
           })}
         </View>
-        <ScrollView style={{ flex: 1 }}>
-          {children[selectedTab]}
-        </ScrollView>
+        <ScrollView style={{ flex: 1 }}>{children[selectedTab]}</ScrollView>
       </View>
     );
   }

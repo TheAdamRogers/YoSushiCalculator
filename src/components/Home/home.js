@@ -1,26 +1,12 @@
 import React, { Component } from 'react';
+import { Alert, AsyncStorage, ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  View,
-  ScrollView,
-  Alert,
-  AsyncStorage,
-  Text,
-} from 'react-native';
-import {
-  defaultBowls,
-  drinks,
-} from '../../utils/data';
-
-import {
-  Header,
-  BowlButton,
-  DrinkButton,
-} from '../../commonComponents/index';
-import Tutorial from '../Tutorial/tutorial';
-import Tabs from '../Tabs/tabs';
+import { BowlButton, DrinkButton, Header } from '../../commonComponents/index';
+import { defaultBowls, drinks } from '../../utils/data';
 import * as basketActions from '../Basket/basketAction';
+import Tabs from '../Tabs/tabs';
+import Tutorial from '../Tutorial/tutorial';
 
 class Home extends Component {
   constructor(props) {
@@ -46,7 +32,7 @@ class Home extends Component {
     try {
       await AsyncStorage.setItem('TutorialFinished', 'true');
     } catch (error) {
-      console.log(error);
+      console.log('This is an error message for the developer: ', error);
     }
     this.resetBowls();
     this.setState({
@@ -57,7 +43,7 @@ class Home extends Component {
   checkTutorial = async () => {
     try {
       const value = await AsyncStorage.getItem('TutorialFinished');
-      console.log(value);
+      // console.log(value);
       if (value === 'true') {
         this.setState({
           tutorialDone: true,
@@ -68,7 +54,7 @@ class Home extends Component {
         });
       }
     } catch (error) {
-      console.log(error);
+      console.log('This is an error message for the developer: ', error);
     }
   };
 
@@ -87,7 +73,7 @@ class Home extends Component {
           onPress: () => this.props.actions.resetBasket(),
         },
       ],
-      { cancelable: false },
+      { cancelable: false }
     );
   };
 
@@ -108,8 +94,11 @@ class Home extends Component {
 
   render() {
     const { student, bowls, drinks, tutorialDone } = this.state;
-    const { basket: { basket }, actions: { addToBasket, removeItemFromBasket } } = this.props;
-    console.log('props', this.props);
+    const {
+      basket: { basket },
+      actions: { addToBasket, removeItemFromBasket },
+    } = this.props;
+    // console.log('props', this.props);
     return (
       <View>
         <Header
@@ -136,7 +125,7 @@ class Home extends Component {
                 </ScrollView> */}
         <Tabs tabs={['Bowls', 'Drinks']}>
           <ScrollView>
-            {bowls.map(bowl => (
+            {bowls.map((bowl) => (
               <BowlButton
                 key={bowl.name}
                 basket={basket}
@@ -148,7 +137,7 @@ class Home extends Component {
             ))}
           </ScrollView>
           <ScrollView>
-            {drinks.map(drink => (
+            {drinks.map((drink) => (
               <DrinkButton
                 key={drink.name}
                 basket={basket}
@@ -161,10 +150,7 @@ class Home extends Component {
         </Tabs>
 
         {tutorialDone === true ? null : (
-          <Tutorial
-            addToBasket={addToBasket}
-            finishTutorial={this.finishTutorial}
-          />
+          <Tutorial addToBasket={addToBasket} finishTutorial={this.finishTutorial} />
         )}
       </View>
     );
@@ -172,10 +158,10 @@ class Home extends Component {
 }
 
 export default connect(
-  state => ({
+  (state) => ({
     basket: state.basket,
   }),
-  dispatch => ({
+  (dispatch) => ({
     actions: bindActionCreators(basketActions, dispatch),
-  }),
+  })
 )(Home);
