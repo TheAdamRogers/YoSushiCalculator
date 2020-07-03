@@ -9,17 +9,26 @@
     "e2e": "detox test --configuration ios.sim"
   },
   "dependencies": {
-    "detox": "^10.0.5",
+    "babel-eslint": "^10.1.0",
+    "detox": "^10.0.13",
     "detox-expo-helpers": "^0.6.0",
-    "expo": "^32.0.0",
+    "expo": "^32.0.6",
     "expo-detox-hook": "^1.0.10",
+    "lodash": "^4.17.15",
     "mocha": "^5.2.0",
     "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "react-native-testfairy": "^2.16.1"
+    "react-native": "^0.62",
+    "react-native-testfairy": "^2.27.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.3"
   },
   "detox": {
     "configurations": {

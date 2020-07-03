@@ -1,8 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image } from 'react-native';
-import TestFairy from 'react-native-testfairy';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk'
 
+import reducers from '../yoSushiCalculator/src/utils/Reducers';
 import Home from './src/components/Home/home';
+
+const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
 export default class App extends React.Component {
   
@@ -13,9 +18,11 @@ export default class App extends React.Component {
   
   render() {
     return (
-      <View style={styles.container}>
-        <Home/>
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Home/>
+        </View>
+      </Provider>
     );
   }
 }

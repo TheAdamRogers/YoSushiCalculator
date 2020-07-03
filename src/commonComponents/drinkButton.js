@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  Dimensions,
-  TouchableOpacity,
-  ImageBackground,
-  Text,
-  Image,
   View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  ImageBackground,
+  Image,
 } from 'react-native';
 
 const styles = {
   container: {
     width: Dimensions.get('window').width - 20,
-    height: '13%',
+    height: '8.2%',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,
     margin: 10,
@@ -27,27 +27,27 @@ const styles = {
     },
     elevation: 3,
   },
-  bowlContainer: {
+  image: {
+    shadowOpacity: 0,
+    justifyContent: 'center',
+    height: 50,
+    width: 50,
+  },
+  text: {
+    fontSize: 20,
+    textAlign: 'right',
+  },
+  cupText: {
+    fontSize: 25,
+    paddingBottom: 8,
+    textAlign: 'center',
+    color: 'black',
+  },
+  drinkContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     flex: 1,
-  },
-  image: {
-    shadowOpacity: 0,
-    justifyContent: 'center',
-    height: 100,
-    width: 100,
-  },
-  text: {
-    fontSize: 30,
-    textAlign: 'center',
-  },
-  bowlText: {
-    fontSize: 25,
-    paddingBottom: 8,
-    textAlign: 'center',
-    color: 'white',
   },
   undoContainer: {
     borderLeftWidth: 1,
@@ -59,35 +59,30 @@ const styles = {
   },
 };
 
-const BowlButton = ({ bowl, onPress, student, basket, undoPress }) => {
-  const { container, image, text, bowlText, undoContainer, bowlContainer } = styles;
-  const { imgURL } = bowl;
+const DrinkButton = ({ drink: { name, price }, drink, basket, onPress, undoPress }) => {
+  const { container, image, text, cupText, drinkContainer, undoContainer } = styles;
   let quantity;
   Object.keys(basket).map((item) => {
-    if (basket[item].name === bowl.name) {
+    if (basket[item].name === drink.name) {
       quantity = basket[item].quantity;
     }
   });
-  let { price } = bowl;
-  if (student) {
-    price *= 0.75;
-  }
   return (
     <View style={container}>
-      <TouchableOpacity style={bowlContainer} onPress={() => onPress(bowl)}>
-        <ImageBackground imageStyle={{ resizeMode: 'contain' }} style={image} source={imgURL}>
-          <Text style={bowlText}>
+      <TouchableOpacity style={drinkContainer} onPress={() => onPress(drink)} >
+        <ImageBackground imageStyle={{ resizeMode: 'contain' }} style={image} source={require('../images/cup.png')}>
+          <Text style={cupText}>
             {quantity}
           </Text>
         </ImageBackground>
-        <Text style={text}>
-          £
-          {parseFloat(price).toFixed(2)}
-        </Text>
+        <View style={{width: 150, alignItems: 'flex-end'}}>
+          <Text style={text}>{name}</Text>
+          <Text style={text}>£{parseFloat(price).toFixed(2)}</Text>
+        </View>
       </TouchableOpacity>
       {quantity
         ? (
-          <TouchableOpacity style={undoContainer} onPress={() => undoPress(bowl)}>
+          <TouchableOpacity style={undoContainer} onPress={() => undoPress(drink)}>
             <View>
               <Image source={require('../images/undoOrange.png')} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
             </View>
@@ -98,4 +93,4 @@ const BowlButton = ({ bowl, onPress, student, basket, undoPress }) => {
   );
 };
 
-export { BowlButton };
+export { DrinkButton };
